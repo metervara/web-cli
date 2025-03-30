@@ -12,12 +12,39 @@ WebCLI is a simple CLI-like navigation tool for websites that listens to keyboar
 
 ## Getting Started
 
-### Installation
+### Using WebCLI in Your Project
+
+1. **Installation**
+
+Add WebCLI as a dependency in your project's `package.json`:
+
+´´´json
+"dependencies": {
+  "@metervara/webcli": "git+https://github.com/metervara/web-cli.git#[VERSION]"
+}
+´´´
+
+Replace `[VERSION]` with the desired tag (e.g., `v1.0.2`). Then run your package manager's install command (e.g., `npm install`).
+
+2. **Import and Usage**
+
+In your project, import the CLI and create an instance:
+
+```js
+import { CLI } from '@metervara/webcli';
+
+const cli = new CLI();
+// Set up cli for your case, please see example in the repo
+// Optionally, execute a command (e.g., "hello")
+cli.execute('help');
+```
+
+### Local development and testing
 
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/webcli.git
+   git clone https://github.com/metervara/web-cli.git
    cd webcli
    ```
 

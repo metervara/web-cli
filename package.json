@@ -4,7 +4,7 @@
   "description": "A CLI-like navigation tool for websites that listens to key events and executes commands.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/patrik-manyone/web-cli.git"
+    "url": "https://github.com/metervara/web-cli.git"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
