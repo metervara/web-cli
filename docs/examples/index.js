@@ -12,6 +12,10 @@ class DomTerminal {
         this.inputLine = document.createElement("span");
         this.inputLine.className = "cli-input";
         this.parent.appendChild(this.inputLine);
+        this.cursor = document.createElement("span");
+        this.cursor.innerText = "_";
+        this.cursor.className = "cursor";
+        this.parent.appendChild(this.cursor);
         // Listen for key events on the document
         document.addEventListener("keydown", this.handleKeyDown.bind(this));
     }

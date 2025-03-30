@@ -19,6 +19,14 @@
     .cli-output {
       color: #fff;
     }
+    .cursor {
+      color: #0f0;
+      animation: blinkCursor 1s infinite;
+    }
+    @keyframes blinkCursor {
+      0% { background-color: rgba(0,255,0,1) } /* Show instantly */
+      100% { background-color: rgba(0,255,0,0) } /* Fade out */
+    }
   </style>
 </head>
 <body>
