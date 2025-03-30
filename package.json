@@ -1,6 +1,6 @@
 {
   "name": "@metervara/webcli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A CLI-like navigation tool for websites that listens to key events and executes commands.",
   "repository": {
     "type": "git",
@@ -9,7 +9,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc && npm run copy-static",
+    "build": "tsc -p tsconfig.json && tsc -p tsconfig.examples.json",
     "copy-static": "copyfiles -u 1 \"examples/**/*.html\" dist/examples",
     "start": "python3 -m http.server 81 --directory dist"
   },
