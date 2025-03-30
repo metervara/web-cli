@@ -60,15 +60,15 @@ cli.execute('help');
    npm run build
    ```
 
-### Running the Examples
+### Running the Example
 
-To serve the examples locally run (make sure you build first):
+To serve the example locally run (make sure you build first):
 
 ```bash
 npm run start
 ```
 
-Then open the an example URL in your browser (e.g http://localhost/examples/index.html)
+Then open the an example URL in your browser (e.g http://localhost/docs/index.html)
 
 ## Usage
 

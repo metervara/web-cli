@@ -10,7 +10,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc && npm run copy-static",
-    "copy-static": "copyfiles -u 1 \"examples/**/*.html\" dist/examples",
+    "copy-static": "copyfiles -u 1 \"docs/**/*.html\" dist/docs",
     "start": "python3 -m http.server 81 --directory dist"
   },
   "author": "PAtrik Svensson / Metervara",
