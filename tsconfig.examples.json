@@ -4,15 +4,12 @@
     "module": "es6",
     "moduleResolution": "node",
     "skipLibCheck": true,
-    "outDir": "./dist", 
-    "declaration": true,
-    "declarationDir": "./dist",
-    "rootDir": "./src",
+    "outDir": "./docs",
     "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true
   },
   "include": [
-    "src/**/*"
+    "examples/**/*"
   ]
 }
