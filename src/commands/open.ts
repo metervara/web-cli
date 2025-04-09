@@ -1,4 +1,4 @@
-import { Command } from "../cli";
+import { Command } from "../index.js"
 
 const openCommand: Command = {
   name: "open",

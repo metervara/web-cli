@@ -1,4 +1,4 @@
-import { Command, CLI } from "../cli";
+import { Command, CLI } from "../index.js";
 
 export function createHelpCommand(cli: CLI): Command {
   return {

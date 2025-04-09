@@ -1,4 +1,4 @@
-import { CLI } from './cli';
+import { CLI } from './cli.js';
 export declare class DomTerminal {
     private currentInput;
     private cli;

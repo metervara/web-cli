@@ -1,7 +1,7 @@
-import { CLI } from "../src/cli.js";
-import { DomTerminal } from "../src/domTerminal.js";
-import openCommand from "../src/commands/open.js";
-import { createHelpCommand } from "../src/commands/help.js";
+import { CLI } from "./dist/index.js";
+import { DomTerminal } from "./dist/index.js";
+import openCommand from "./dist/commands/open.js";
+import { createHelpCommand } from "./dist/commands/help.js";
 import helloCommand from "./commands/hello.js";
 
 // Create a CLI instance and register commands
