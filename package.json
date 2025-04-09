@@ -1,6 +1,6 @@
 {
   "name": "@metervara/webcli",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A CLI-like navigation tool for websites that listens to key events and executes commands.",
   "repository": {
     "type": "git",
@@ -13,7 +13,7 @@
     "copy-static": "copyfiles -u 1 \"examples/**/*.html\" docs/examples",
     "start": "python3 -m http.server 81 --directory docs"
   },
-  "author": "PAtrik Svensson / Metervara",
+  "author": "Patrik Svensson / Metervara",
   "license": "MIT",
   "devDependencies": {
     "copyfiles": "^2.4.1",
