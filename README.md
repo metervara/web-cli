@@ -2,7 +2,7 @@
 
 WebCLI is a simple CLI-like navigation tool for websites that listens to keyboard events, accepts command input, and executes commands. Its modular architecture makes it easy to add new commands by defining them in separate files.
 
-[See example project here](https://metervara.github.io/web-cli/examples/)
+[See example project here](https://metervara.github.io/web-cli/)
 
 ![example usage](./assets/webcli-01.png)
 
