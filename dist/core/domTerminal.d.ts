@@ -1,4 +1,5 @@
 import { CLI } from './cli.js';
+type LogLevel = 'info' | 'error' | 'warning' | 'input';
 export declare class DomTerminal {
     private currentInput;
     private cli;
@@ -7,5 +8,6 @@ export declare class DomTerminal {
     constructor(cli: CLI, outputEl: HTMLElement, inputEl: HTMLElement);
     private handleKeyDown;
     private runCommand;
-    appendOutput(text: string): void;
+    appendOutput(text: string, level: LogLevel): void;
 }
+export {};

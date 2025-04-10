@@ -1,30 +1,14 @@
 export class DomTerminal {
-    // private cursor: HTMLElement;
     constructor(cli, outputEl, inputEl) {
         this.currentInput = "";
         this.cli = cli;
-        // this.root = root;
         this.outputEl = outputEl;
         this.inputEl = inputEl;
-        // if(inputEl) {
-        //   this.inputEl = inputEl;
-        // } else {
-        //   this.inputEl = document.createElement("span");
-        //   this.inputEl.className = "cli-input";
-        //   this.outputEl.appendChild(this.inputEl);
-        // }
-        // if(addCursor) {
-        //   this.cursor = document.createElement("span");
-        //   this.cursor.innerText = "_";
-        //   this.cursor.className = "cursor";
-        //   this.outputEl.appendChild(this.cursor);
-        // }
-        // Listen for key events on the document
         document.addEventListener("keydown", this.handleKeyDown.bind(this));
     }
     handleKeyDown(event) {
         if (event.key === "Enter") {
-            this.appendOutput(`> ${this.currentInput}`);
+            this.appendOutput(`> ${this.currentInput}`, "input");
             this.runCommand(this.currentInput);
             this.currentInput = "";
             this.inputEl.textContent = "";
@@ -43,24 +27,29 @@ export class DomTerminal {
     }
     runCommand(commandStr) {
         const originalLog = console.log;
+        const originalWarn = console.warn;
         const originalError = console.error;
         console.log = (...args) => {
-            this.appendOutput(args.join(" "));
+            this.appendOutput(args.join(" "), "info");
             originalLog(...args);
         };
+        console.warn = (...args) => {
+            this.appendOutput("Warning: " + args.join(" "), "warning");
+            originalWarn(...args);
+        };
         console.error = (...args) => {
-            this.appendOutput("Error: " + args.join(" "));
+            this.appendOutput("Error: " + args.join(" "), "error");
             originalError(...args);
         };
         this.cli.execute(commandStr);
         console.log = originalLog;
+        console.warn = originalWarn;
         console.error = originalError;
     }
-    appendOutput(text) {
+    appendOutput(text, level) {
         const outputSpan = document.createElement("span");
-        outputSpan.className = "cli-output";
+        outputSpan.className = `cli-output ${level}`;
         outputSpan.textContent = text;
         this.outputEl.appendChild(outputSpan);
-        // this.outputEl.appendChild(document.createElement("br")); // Leave this for consumer to decide how layout is done
     }
 }
