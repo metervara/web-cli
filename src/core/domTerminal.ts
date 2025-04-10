@@ -3,30 +3,14 @@ import { CLI } from './cli.js';
 export class DomTerminal {
   private currentInput: string = "";
   private cli: CLI;
-  private root: HTMLElement;
-  private inputLine: HTMLElement;
-  private cursor: HTMLElement | undefined;
+  private outputEl: HTMLElement;
+  private inputEl: HTMLElement;
 
-  constructor(cli: CLI, root: HTMLElement, inputLine: HTMLElement | undefined = undefined, addCursor: boolean = true) {
+  constructor(cli: CLI, outputEl: HTMLElement, inputEl: HTMLElement) {
     this.cli = cli;
-    this.root = root;
+    this.outputEl = outputEl;
+    this.inputEl = inputEl;
 
-    if(inputLine) {
-      this.inputLine = inputLine;
-    } else {
-      this.inputLine = document.createElement("span");
-      this.inputLine.className = "cli-input";
-      this.root.appendChild(this.inputLine);
-    }
-
-    if(addCursor) {
-      this.cursor = document.createElement("span");
-      this.cursor.innerText = "_";
-      this.cursor.className = "cursor";
-      this.root.appendChild(this.cursor);
-    }
-
-    // Listen for key events on the document
     document.addEventListener("keydown", this.handleKeyDown.bind(this));
   }
 
@@ -35,15 +19,15 @@ export class DomTerminal {
       this.appendOutput(`> ${this.currentInput}`);
       this.runCommand(this.currentInput);
       this.currentInput = "";
-      this.inputLine.textContent = "";
+      this.inputEl.textContent = "";
       event.preventDefault();
     } else if (event.key === "Backspace") {
       this.currentInput = this.currentInput.slice(0, -1);
-      this.inputLine.textContent = this.currentInput;
+      this.inputEl.textContent = this.currentInput;
       event.preventDefault();
     } else if (event.key.length === 1) {
       this.currentInput += event.key;
-      this.inputLine.textContent = this.currentInput;
+      this.inputEl.textContent = this.currentInput;
       event.preventDefault();
     }
   }
@@ -72,7 +56,6 @@ export class DomTerminal {
     const outputSpan = document.createElement("span");
     outputSpan.className = "cli-output";
     outputSpan.textContent = text;
-    this.root.insertBefore(outputSpan, this.inputLine);
-    this.root.insertBefore(document.createElement("br"), this.inputLine);
+    this.outputEl.appendChild(outputSpan);
   }
 }

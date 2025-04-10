@@ -11,9 +11,11 @@ cli.registerCommand(createHelpCommand(cli));
 cli.registerCommand(helloCommand);
 
 // Find the parent element in the DOM (ensure an element with id "cli-container" exists in your HTML)
-const parentElement = document.getElementById("cli-container");
-if (parentElement) {
-  const terminal = new DomTerminal(cli, parentElement);
+const rootElement = document.getElementById("cli-container");
+const inputElement = rootElement.querySelector(".cli-input");
+const outputElement = rootElement.querySelector(".cli-output-wrapper");
+if (inputElement && outputElement) {
+  const terminal = new DomTerminal(cli, outputElement, inputElement);
   // Optionally print a welcome message
   terminal.appendOutput("Welcome to WebCLI. Type 'help' for a list of commands.");
 } else {

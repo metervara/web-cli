@@ -8,16 +8,22 @@
       font-family: monospace;
       background: #222;
       color: #eee;
+      font-size: 1rem;
       padding: 20px;
     }
     #cli-container {
-      white-space: pre-wrap;
+      /* white-space: pre-wrap; */
     }
     .cli-input {
       color: #0f0;
     }
+    .cli-output-wrapper {
+      display: contents;
+    }
     .cli-output {
       color: #fff;
+      display: block;
+      margin-bottom: 0.5em;
     }
     .cursor {
       color: #0f0;
@@ -30,8 +36,11 @@
   </style>
 </head>
 <body>
-  <div id="cli-container"></div>
-  <!-- Load the compiled JavaScript for the example -->
+  <div id="cli-container">
+    <div class="cli-output-wrapper"></div>
+    <span class="cli-input"></span>
+    <span class="cursor">_</span>
+  </div>
   <script type="module" src="index.js"></script>
 </body>
 </html>

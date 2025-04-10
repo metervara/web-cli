@@ -2,10 +2,9 @@ import { CLI } from './cli.js';
 export declare class DomTerminal {
     private currentInput;
     private cli;
-    private root;
-    private inputLine;
-    private cursor;
-    constructor(cli: CLI, root: HTMLElement, inputLine?: HTMLElement | undefined, addCursor?: boolean);
+    private outputEl;
+    private inputEl;
+    constructor(cli: CLI, outputEl: HTMLElement, inputEl: HTMLElement);
     private handleKeyDown;
     private runCommand;
     appendOutput(text: string): void;

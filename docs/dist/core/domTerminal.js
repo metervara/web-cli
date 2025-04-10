@@ -1,22 +1,24 @@
 export class DomTerminal {
-    constructor(cli, root, inputLine = undefined, addCursor = true) {
+    // private cursor: HTMLElement;
+    constructor(cli, outputEl, inputEl) {
         this.currentInput = "";
         this.cli = cli;
-        this.root = root;
-        if (inputLine) {
-            this.inputLine = inputLine;
-        }
-        else {
-            this.inputLine = document.createElement("span");
-            this.inputLine.className = "cli-input";
-            this.root.appendChild(this.inputLine);
-        }
-        if (addCursor) {
-            this.cursor = document.createElement("span");
-            this.cursor.innerText = "_";
-            this.cursor.className = "cursor";
-            this.root.appendChild(this.cursor);
-        }
+        // this.root = root;
+        this.outputEl = outputEl;
+        this.inputEl = inputEl;
+        // if(inputEl) {
+        //   this.inputEl = inputEl;
+        // } else {
+        //   this.inputEl = document.createElement("span");
+        //   this.inputEl.className = "cli-input";
+        //   this.outputEl.appendChild(this.inputEl);
+        // }
+        // if(addCursor) {
+        //   this.cursor = document.createElement("span");
+        //   this.cursor.innerText = "_";
+        //   this.cursor.className = "cursor";
+        //   this.outputEl.appendChild(this.cursor);
+        // }
         // Listen for key events on the document
         document.addEventListener("keydown", this.handleKeyDown.bind(this));
     }
@@ -25,17 +27,17 @@ export class DomTerminal {
             this.appendOutput(`> ${this.currentInput}`);
             this.runCommand(this.currentInput);
             this.currentInput = "";
-            this.inputLine.textContent = "";
+            this.inputEl.textContent = "";
             event.preventDefault();
         }
         else if (event.key === "Backspace") {
             this.currentInput = this.currentInput.slice(0, -1);
-            this.inputLine.textContent = this.currentInput;
+            this.inputEl.textContent = this.currentInput;
             event.preventDefault();
         }
         else if (event.key.length === 1) {
             this.currentInput += event.key;
-            this.inputLine.textContent = this.currentInput;
+            this.inputEl.textContent = this.currentInput;
             event.preventDefault();
         }
     }
@@ -58,7 +60,7 @@ export class DomTerminal {
         const outputSpan = document.createElement("span");
         outputSpan.className = "cli-output";
         outputSpan.textContent = text;
-        this.root.insertBefore(outputSpan, this.inputLine);
-        this.root.insertBefore(document.createElement("br"), this.inputLine);
+        this.outputEl.appendChild(outputSpan);
+        // this.outputEl.appendChild(document.createElement("br")); // Leave this for consumer to decide how layout is done
     }
 }
