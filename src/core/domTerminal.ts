@@ -8,6 +8,9 @@ export class DomTerminal {
   private outputEl: HTMLElement;
   private inputEl: HTMLElement;
 
+  private commandHistory: string[] = [];
+  private commandHistoryIndex: number = 0; // points to next command (or past-the-end)
+
   public config: {
     promptPrefix: string;
     errorPrefix: string;
@@ -38,6 +41,10 @@ export class DomTerminal {
 
   private handleKeyDown(event: KeyboardEvent): void {
     if (event.key === "Enter") {
+      if (this.currentInput.trim() !== "") {
+        this.commandHistory.push(this.currentInput);
+        this.commandHistoryIndex = this.commandHistory.length;
+      }
       this.appendOutput(this.config.promptPrefix + this.currentInput + this.config.promptSuffix, "input");
       this.runCommand(this.currentInput);
       this.currentInput = "";
@@ -46,6 +53,24 @@ export class DomTerminal {
     } else if (event.key === "Backspace") {
       this.currentInput = this.currentInput.slice(0, -1);
       this.inputEl.textContent = this.currentInput;
+      event.preventDefault();
+    } else if (event.key === "ArrowUp") {
+      if (this.commandHistory.length > 0) {
+        this.commandHistoryIndex = Math.max(this.commandHistoryIndex - 1, 0);
+        this.currentInput = this.commandHistory[this.commandHistoryIndex];
+        this.inputEl.textContent = this.currentInput;
+      }
+      event.preventDefault();
+    } else if (event.key === "ArrowDown") {
+      if (this.commandHistory.length > 0) {
+        this.commandHistoryIndex = Math.min(this.commandHistoryIndex + 1, this.commandHistory.length);
+        if (this.commandHistoryIndex === this.commandHistory.length) {
+          this.currentInput = "";
+        } else {
+          this.currentInput = this.commandHistory[this.commandHistoryIndex];
+        }
+        this.inputEl.textContent = this.currentInput;
+      }
       event.preventDefault();
     } else if (event.key.length === 1) {
       this.currentInput += event.key;

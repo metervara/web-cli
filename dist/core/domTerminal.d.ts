@@ -5,6 +5,8 @@ export declare class DomTerminal {
     private cli;
     private outputEl;
     private inputEl;
+    private commandHistory;
+    private commandHistoryIndex;
     config: {
         promptPrefix: string;
         errorPrefix: string;
