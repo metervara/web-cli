@@ -1,6 +1,16 @@
 export class DomTerminal {
     constructor(cli, outputEl, inputEl) {
         this.currentInput = "";
+        this.config = {
+            promptPrefix: "> ",
+            errorPrefix: "Error: ",
+            warningPrefix: "Warning: ",
+            infoPrefix: "",
+            promptSuffix: "",
+            errorSuffix: "",
+            warningSuffix: "",
+            infoSuffix: "" // Append info messages
+        };
         this.cli = cli;
         this.outputEl = outputEl;
         this.inputEl = inputEl;
@@ -8,7 +18,7 @@ export class DomTerminal {
     }
     handleKeyDown(event) {
         if (event.key === "Enter") {
-            this.appendOutput(`> ${this.currentInput}`, "input");
+            this.appendOutput(this.config.promptPrefix + this.currentInput + this.config.promptSuffix, "input");
             this.runCommand(this.currentInput);
             this.currentInput = "";
             this.inputEl.textContent = "";
@@ -30,15 +40,15 @@ export class DomTerminal {
         const originalWarn = console.warn;
         const originalError = console.error;
         console.log = (...args) => {
-            this.appendOutput(args.join(" "), "info");
+            this.appendOutput(this.config.infoPrefix + args.join(" ") + this.config.infoSuffix, "info");
             originalLog(...args);
         };
         console.warn = (...args) => {
-            this.appendOutput("Warning: " + args.join(" "), "warning");
+            this.appendOutput(this.config.warningPrefix + args.join(" ") + this.config.warningSuffix, "warning");
             originalWarn(...args);
         };
         console.error = (...args) => {
-            this.appendOutput("Error: " + args.join(" "), "error");
+            this.appendOutput(this.config.errorPrefix + args.join(" ") + this.config.errorSuffix, "error");
             originalError(...args);
         };
         this.cli.execute(commandStr);

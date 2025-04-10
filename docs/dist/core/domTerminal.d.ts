@@ -5,6 +5,16 @@ export declare class DomTerminal {
     private cli;
     private outputEl;
     private inputEl;
+    config: {
+        promptPrefix: string;
+        errorPrefix: string;
+        warningPrefix: string;
+        infoPrefix: string;
+        promptSuffix: string;
+        errorSuffix: string;
+        warningSuffix: string;
+        infoSuffix: string;
+    };
     constructor(cli: CLI, outputEl: HTMLElement, inputEl: HTMLElement);
     private handleKeyDown;
     private runCommand;

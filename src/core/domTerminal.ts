@@ -8,6 +8,26 @@ export class DomTerminal {
   private outputEl: HTMLElement;
   private inputEl: HTMLElement;
 
+  public config: {
+    promptPrefix: string;
+    errorPrefix: string;
+    warningPrefix: string;
+    infoPrefix: string;
+    promptSuffix: string;
+    errorSuffix: string;
+    warningSuffix: string;
+    infoSuffix: string;
+  } = {
+    promptPrefix: "> ",           // Used before user input when pressing Enter.
+    errorPrefix: "Error: ",       // Prepend error messages.
+    warningPrefix: "Warning: ",   // Prepend warning messages.
+    infoPrefix: "",               // Prepend info messages
+    promptSuffix: "",             // Used before user input when pressing Enter.
+    errorSuffix: "",              // Append error messages.
+    warningSuffix: "",            // Append warning messages.
+    infoSuffix: ""                // Append info messages
+  };
+
   constructor(cli: CLI, outputEl: HTMLElement, inputEl: HTMLElement) {
     this.cli = cli;
     this.outputEl = outputEl;
@@ -18,7 +38,7 @@ export class DomTerminal {
 
   private handleKeyDown(event: KeyboardEvent): void {
     if (event.key === "Enter") {
-      this.appendOutput(`> ${this.currentInput}`, "input");
+      this.appendOutput(this.config.promptPrefix + this.currentInput + this.config.promptSuffix, "input");
       this.runCommand(this.currentInput);
       this.currentInput = "";
       this.inputEl.textContent = "";
@@ -40,17 +60,17 @@ export class DomTerminal {
     const originalError = console.error;
 
     console.log = (...args: any[]) => {
-      this.appendOutput(args.join(" "), "info");
+      this.appendOutput(this.config.infoPrefix + args.join(" ") + this.config.infoSuffix, "info");
       originalLog(...args);
     };
 
     console.warn = (...args: any[]) => {
-      this.appendOutput("Warning: " + args.join(" "), "warning");
+      this.appendOutput(this.config.warningPrefix + args.join(" ") + this.config.warningSuffix, "warning");
       originalWarn(...args);
     };
 
     console.error = (...args: any[]) => {
-      this.appendOutput("Error: " + args.join(" "), "error");
+      this.appendOutput(this.config.errorPrefix + args.join(" ") + this.config.errorSuffix, "error");
       originalError(...args);
     };
 
