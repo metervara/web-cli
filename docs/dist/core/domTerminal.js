@@ -11,7 +11,8 @@ export class DomTerminal {
             promptSuffix: "",
             errorSuffix: "",
             warningSuffix: "",
-            infoSuffix: "" // Append info messages
+            infoSuffix: "",
+            interceptKeyboardShortcuts: false
         };
         this.cli = cli;
         this.outputEl = outputEl;
@@ -19,6 +20,10 @@ export class DomTerminal {
         document.addEventListener("keydown", this.handleKeyDown.bind(this));
     }
     handleKeyDown(event) {
+        // Determine if we intercept or pass through keyboard shortcuts
+        if (!this.config.interceptKeyboardShortcuts && (event.metaKey || event.ctrlKey)) {
+            return;
+        }
         if (event.key === "Enter") {
             if (this.currentInput.trim() !== "") {
                 this.commandHistory.push(this.currentInput);

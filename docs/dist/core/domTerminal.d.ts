@@ -16,6 +16,7 @@ export declare class DomTerminal {
         errorSuffix: string;
         warningSuffix: string;
         infoSuffix: string;
+        interceptKeyboardShortcuts: boolean;
     };
     constructor(cli: CLI, outputEl: HTMLElement, inputEl: HTMLElement);
     private handleKeyDown;

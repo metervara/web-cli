@@ -12,23 +12,25 @@ export class DomTerminal {
   private commandHistoryIndex: number = 0; // points to next command (or past-the-end)
 
   public config: {
-    promptPrefix: string;
-    errorPrefix: string;
-    warningPrefix: string;
-    infoPrefix: string;
-    promptSuffix: string;
-    errorSuffix: string;
-    warningSuffix: string;
-    infoSuffix: string;
+    promptPrefix: string;                 // Used before user input when pressing Enter.
+    errorPrefix: string;                  // Prepend error messages.
+    warningPrefix: string;                // Prepend warning messages.
+    infoPrefix: string;                   // Prepend info messages
+    promptSuffix: string;                 // Used before user input when pressing Enter.
+    errorSuffix: string;                  // Append error messages.
+    warningSuffix: string;                // Append warning messages.
+    infoSuffix: string;                   // Append info messages
+    interceptKeyboardShortcuts: boolean,  // If set to true, the CLI will block standard shortcust like CMD-R to reload and copy&paste etc. If true, consider handling that manually
   } = {
-    promptPrefix: "> ",           // Used before user input when pressing Enter.
-    errorPrefix: "Error: ",       // Prepend error messages.
-    warningPrefix: "Warning: ",   // Prepend warning messages.
-    infoPrefix: "",               // Prepend info messages
-    promptSuffix: "",             // Used before user input when pressing Enter.
-    errorSuffix: "",              // Append error messages.
-    warningSuffix: "",            // Append warning messages.
-    infoSuffix: ""                // Append info messages
+    promptPrefix: "> ",           
+    errorPrefix: "Error: ",       
+    warningPrefix: "Warning: ",   
+    infoPrefix: "",               
+    promptSuffix: "",             
+    errorSuffix: "",              
+    warningSuffix: "",            
+    infoSuffix: "",               
+    interceptKeyboardShortcuts: false
   };
 
   constructor(cli: CLI, outputEl: HTMLElement, inputEl: HTMLElement) {
@@ -40,6 +42,12 @@ export class DomTerminal {
   }
 
   private handleKeyDown(event: KeyboardEvent): void {
+    
+    // Determine if we intercept or pass through keyboard shortcuts
+    if (!this.config.interceptKeyboardShortcuts && (event.metaKey || event.ctrlKey)) {
+      return;
+    }
+
     if (event.key === "Enter") {
       if (this.currentInput.trim() !== "") {
         this.commandHistory.push(this.currentInput);

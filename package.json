@@ -1,6 +1,6 @@
 {
   "name": "@metervara/webcli",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "A CLI-like navigation tool for websites that listens to key events and executes commands.",
   "repository": {
     "type": "git",
