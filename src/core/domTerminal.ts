@@ -21,6 +21,7 @@ export class DomTerminal {
     warningSuffix: string;                // Append warning messages.
     infoSuffix: string;                   // Append info messages
     interceptKeyboardShortcuts: boolean,  // If set to true, the CLI will block standard shortcust like CMD-R to reload and copy&paste etc. If true, consider handling that manually
+    passthroughKeys: string[],
   } = {
     promptPrefix: "> ",           
     errorPrefix: "Error: ",       
@@ -30,7 +31,8 @@ export class DomTerminal {
     errorSuffix: "",              
     warningSuffix: "",            
     infoSuffix: "",               
-    interceptKeyboardShortcuts: false
+    interceptKeyboardShortcuts: false,
+    passthroughKeys: ["Escape"]
   };
 
   constructor(cli: CLI, outputEl: HTMLElement, inputEl: HTMLElement) {
@@ -44,7 +46,7 @@ export class DomTerminal {
   private handleKeyDown(event: KeyboardEvent): void {
     
     // Determine if we intercept or pass through keyboard shortcuts
-    if (!this.config.interceptKeyboardShortcuts && (event.metaKey || event.ctrlKey)) {
+    if (!this.config.interceptKeyboardShortcuts && (event.metaKey || event.ctrlKey || this.config.passthroughKeys.includes(event.key))) {
       return;
     }
 
