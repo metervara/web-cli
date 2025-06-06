@@ -5,7 +5,7 @@ type LogLevel = 'info' | 'error' | 'warning' | 'input';
 export class DomTerminal {
   private currentInput: string = "";
   private cli: CLI;
-  private outputEl: HTMLElement;
+  public outputEl: HTMLElement;
   private inputEl: HTMLElement;
 
   private commandHistory: string[] = [];

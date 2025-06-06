@@ -12,7 +12,8 @@ export class DomTerminal {
             errorSuffix: "",
             warningSuffix: "",
             infoSuffix: "",
-            interceptKeyboardShortcuts: false
+            interceptKeyboardShortcuts: false,
+            passthroughKeys: ["Escape"]
         };
         this.cli = cli;
         this.outputEl = outputEl;
@@ -21,7 +22,7 @@ export class DomTerminal {
     }
     handleKeyDown(event) {
         // Determine if we intercept or pass through keyboard shortcuts
-        if (!this.config.interceptKeyboardShortcuts && (event.metaKey || event.ctrlKey)) {
+        if (!this.config.interceptKeyboardShortcuts && (event.metaKey || event.ctrlKey || this.config.passthroughKeys.includes(event.key))) {
             return;
         }
         if (event.key === "Enter") {

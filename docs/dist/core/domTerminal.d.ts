@@ -3,7 +3,7 @@ type LogLevel = 'info' | 'error' | 'warning' | 'input';
 export declare class DomTerminal {
     private currentInput;
     private cli;
-    private outputEl;
+    outputEl: HTMLElement;
     private inputEl;
     private commandHistory;
     private commandHistoryIndex;
@@ -17,6 +17,7 @@ export declare class DomTerminal {
         warningSuffix: string;
         infoSuffix: string;
         interceptKeyboardShortcuts: boolean;
+        passthroughKeys: string[];
     };
     constructor(cli: CLI, outputEl: HTMLElement, inputEl: HTMLElement);
     private handleKeyDown;
