@@ -1,5 +1,5 @@
 export class DomTerminal {
-    constructor(cli, outputEl, inputEl) {
+    constructor(cli, outputEl, inputEl, addLineBreakAfterOutput = false) {
         this.currentInput = "";
         this.commandHistory = [];
         this.commandHistoryIndex = 0; // points to next command (or past-the-end)
@@ -18,6 +18,7 @@ export class DomTerminal {
         this.cli = cli;
         this.outputEl = outputEl;
         this.inputEl = inputEl;
+        this.addLineBreakAfterOutput = addLineBreakAfterOutput;
         document.addEventListener("keydown", this.handleKeyDown.bind(this));
     }
     handleKeyDown(event) {
@@ -94,5 +95,8 @@ export class DomTerminal {
         outputSpan.className = `cli-output ${level}`;
         outputSpan.textContent = text;
         this.outputEl.appendChild(outputSpan);
+        if (this.addLineBreakAfterOutput) {
+            this.outputEl.appendChild(document.createElement("br"));
+        }
     }
 }

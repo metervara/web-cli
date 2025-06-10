@@ -5,6 +5,7 @@ export declare class DomTerminal {
     private cli;
     outputEl: HTMLElement;
     private inputEl;
+    private addLineBreakAfterOutput;
     private commandHistory;
     private commandHistoryIndex;
     config: {
@@ -19,7 +20,7 @@ export declare class DomTerminal {
         interceptKeyboardShortcuts: boolean;
         passthroughKeys: string[];
     };
-    constructor(cli: CLI, outputEl: HTMLElement, inputEl: HTMLElement);
+    constructor(cli: CLI, outputEl: HTMLElement, inputEl: HTMLElement, addLineBreakAfterOutput?: boolean);
     private handleKeyDown;
     private runCommand;
     appendOutput(text: string, level: LogLevel): void;
