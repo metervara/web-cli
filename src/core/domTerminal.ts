@@ -7,6 +7,7 @@ export class DomTerminal {
   private cli: CLI;
   public outputEl: HTMLElement;
   private inputEl: HTMLElement;
+  private addLineBreakAfterOutput: boolean;
 
   private commandHistory: string[] = [];
   private commandHistoryIndex: number = 0; // points to next command (or past-the-end)
@@ -35,10 +36,11 @@ export class DomTerminal {
     passthroughKeys: ["Escape"]
   };
 
-  constructor(cli: CLI, outputEl: HTMLElement, inputEl: HTMLElement) {
+  constructor(cli: CLI, outputEl: HTMLElement, inputEl: HTMLElement, addLineBreakAfterOutput: boolean = false) {
     this.cli = cli;
     this.outputEl = outputEl;
     this.inputEl = inputEl;
+    this.addLineBreakAfterOutput = addLineBreakAfterOutput;
 
     document.addEventListener("keydown", this.handleKeyDown.bind(this));
   }
@@ -121,5 +123,8 @@ export class DomTerminal {
     outputSpan.className = `cli-output ${level}`;
     outputSpan.textContent = text;
     this.outputEl.appendChild(outputSpan);
+    if(this.addLineBreakAfterOutput) {
+      this.outputEl.appendChild(document.createElement("br"));
+    }
   }
 }
